@@ -1,1 +1,20 @@
-PLACEHOLDER_WILL_FAIL
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sergey Avchinnik | Student card</title>
+<script>
+(async () => {
+  const parts = [];
+  for (let i = 0; i < 4; i++) {
+    const r = await fetch('part' + i + '.txt?t=' + Date.now());
+    if (!r.ok) throw new Error('part' + i + ' ' + r.status);
+    parts.push(await r.text());
+  }
+  const html = parts.join('');
+  document.open();
+  document.write(html);
+  document.close();
+})().catch(e => {
+  document.body.innerHTML = '<pre style="padding:2rem;font-family:system-ui">Failed to load card: ' + e + '</pre>';
+});
+</script>
+</head><body><p style="font-family:system-ui;padding:2rem;color:#666">Loading Sergey Avchinnik student card…</p></body></html>
